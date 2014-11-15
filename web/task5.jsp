@@ -1,26 +1,20 @@
 <%-- 
-    Document   : index
-    Created on : Nov 13, 2014, 8:45:26 PM
+    Document   : task5
+    Created on : Nov 14, 2014, 8:20:23 PM
     Author     : Brandon Auwaerter
 --%>
-
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <jsp:include page="navbar.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Task 5</title>
     </head>
-    
-    
     <body>
-        <div class="row">
-            <div class="col-md-6">
-                <h1>Welcome to our project!</h1>
-            </div>
-        </div>
-        
+        <h1>Task 5</h1>
     </body>
 </html>
 
