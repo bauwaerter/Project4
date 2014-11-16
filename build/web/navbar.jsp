@@ -15,18 +15,17 @@
 <!DOCTYPE html>
 <html>
     <%
-    try {
-            //String connectionURL = "jdbc:mysql://finalexpenseestimator.com/hw/db.php";
-            String connectionURL = "jdbc:mysql://finalexpenseestimator.com/hw/db.php?username=class@localhost&password=healthcare&db=hw";
-            Connection connection = null; 
-            Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-            connection = DriverManager.getConnection(connectionURL);
-            if(!connection.isClosed())
-                 out.println("Successfully connected to " + "MySQL server using TCP/IP...");
-            connection.close();
-        }catch(Exception ex){
-            out.println("Unable to connect to database"+ex);
-        }  
+//    try {
+//            String connectionURL = "jdbc:mysql://216.70.85.35";
+//            Connection connection = null; 
+//            Class.forName("com.mysql.jdbc.Driver").newInstance(); 
+//            connection = DriverManager.getConnection(connectionURL, "class", "healthcare");
+//            if(!connection.isClosed())
+//                 out.println("Successfully connected to " + "MySQL server using TCP/IP...");
+//            connection.close();
+//        }catch(Exception ex){
+//            out.println("Unable to connect to database"+ex);
+//        }  
     %>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">

@@ -3,8 +3,11 @@
     Created on : Nov 14, 2014, 8:19:04 PM
     Author     : Brandon Auwaerter
 --%>
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,9 +17,12 @@
         <title>Task 1</title>
     </head>
     <body>
-        <h1>Task 1</h1>
-        <br/>
-        <form role="form">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Task 1
+            </div>
+            <div class="panel-body">
+                <form role="form">
             <div class="form-group">
                 
               <label for="age_group">Age Group</label>
@@ -55,7 +61,31 @@
             <div class="col-md-offset-5">
             <button type="submit" class="btn btn-success">Submit</button>
             </div>
+            </div>
+        </div>
+        
+        
+        
       </form>
+      
+      <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://216.70.85.35" user="class"  password="healthcare"/>
+                
+      <sql:query dataSource="${snapshot}" var="result">
+        SELECT * from hw LIMIT 50;
+      </sql:query>
+ 
+    <table border="1" width="100%">
+        <tr>
+        <th>AGE</th>
+        
+        </tr>
+        <c:forEach var="row" items="${result.rows}">
+        <tr>
+            <td><c:out value="${row.AGE}"/></td>
+        </tr>
+        </c:forEach>
+    </table>
         
         
         
@@ -68,3 +98,7 @@
     });
         
 </script>
+
+
+
+

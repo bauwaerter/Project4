@@ -3,8 +3,7 @@
     Created on : Nov 14, 2014, 8:20:12 PM
     Author     : Brandon Auwaerter
 --%>
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
