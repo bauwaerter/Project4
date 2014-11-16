@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/Project4"/>
+<Context antiJARLocking="true" path="/Project4">
+<!--    <Resource name="jdbc/hw"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="class"
+              password="healthcare"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://216.70.85.35"
+              maxActive="15"
+              maxIdle="3"/>-->
+</Context>
+
