@@ -5,17 +5,6 @@
 --%>
 
 
-
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
-
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="js/libs/jquery/jquery.js" type="text/javascript"></script>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
     <%-- <%
     try {
             String connectionURL = "jdbc:mysql://216.70.85.35";
@@ -35,7 +24,7 @@
             out.println("Unable to connect to database"+ex);
         }  
     %>--%>
-    <br>
+
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -60,7 +49,6 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-</html>
 
 <script type="text/javascript">
     $(document).ready(function(){
