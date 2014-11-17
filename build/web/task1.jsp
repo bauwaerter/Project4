@@ -10,18 +10,25 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://216.70.85.35/hw" user="class"  password="healthcare"/>
+     
+
 <html>
     <jsp:include page="navbar.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Task 1</title>
     </head>
-
+<sql:query dataSource="${snapshot}" var="codes">
+  SELECT DISTINCT ADMITTING_DIAGNOSIS_CODE FROM hw;
+</sql:query>
 
     <body>
         <div class="panel panel-info">
             <div class="panel-heading">
-                Task 1
+                Task 1.1
             </div>
             <div class="panel-body">
                 <form action="task1.jsp" method="POST" role="form">
@@ -54,8 +61,11 @@
             <div class="form-group">
               <label for="admission_code">Admission Code</label> (TRY 5, 1, 78605)
               <div class="col-md-offset-3 col-md-4">
-              <input name="admission_code" id="admission_code" class="form-control">
-              
+                  <select name="admission_code" id="admission_code" class="form-control">
+                    <c:forEach var="row" items="${codes.rows}">
+                        <option value="${row.ADMITTING_DIAGNOSIS_CODE}"><c:out value="${row.ADMITTING_DIAGNOSIS_CODE}"/></option>
+                    </c:forEach> 
+                  </select>
               </div>
             </div>
             <div class="col-md-offset-5">
@@ -73,12 +83,10 @@ String gender = request.getParameter("gender");
 String admission_code = request.getParameter("admission_code");
 %> 
 <font size="3"><b>RESULTS:</b></font><br>
-Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> |Admission Code: <b><%= admission_code %></b><br><br>
+Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> | Admission Code: <b><%= admission_code %></b><br><br>
 
 
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://216.70.85.35/hw" user="class"  password="healthcare"/>
-                
+           
 <sql:query dataSource="${snapshot}" var="length">
   SELECT AVG(length_of_stay) as avg FROM hw where age=<%= age_group %> and sex=<%= gender %> and ADMITTING_DIAGNOSIS_CODE=<%= admission_code %>;
 </sql:query>
@@ -100,17 +108,17 @@ Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> |Admission Code: <b>
 </sql:query>
   
 <sql:query dataSource="${snapshot}" var="totalchargesALL">
-  SELECT AVG(TOTAL_CHARGES) as total FROM hw where age=<%= age_group %> and sex=<%= gender %> and ADMITTING_DIAGNOSIS_CODE=<%= admission_code %> 
+  SELECT AVG(TOTAL_CHARGES) as total FROM hw where age=<%= age_group %> and sex=<%= gender %>;
 </sql:query>
   
 <b>Task 1.1.1</b>  
-<table border="1" width="400px">
+<table class="table" border="1" width="400px">
         <th width="300px">Average Length Of Stay for Code <%= admission_code %>: </th>
         <c:forEach var="row" items="${length.rows}">
             <td width="100px"><c:out value="${row.avg}"/></td>
         </c:forEach> 
 </table>
-<table border="1" width="400px">
+<table class="table" border="1" width="400px">
         <th width="300px">Average Length Of Stay for ALL: </th>
         <c:forEach var="row" items="${lengthALL.rows}">
             <td width="100px"><c:out value="${row.avg}"/></td>
@@ -121,13 +129,13 @@ Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> |Admission Code: <b>
 <br><br>
 
 <b>Task 1.1.2</b>  
-<table border="1" width="400px">
+<table class="table" border="1" width="400px">
         <th width="300px">Discharge Status for Code <%= admission_code %>: </th>
         <c:forEach var="row" items="${disc.rows}">
             <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
         </c:forEach> 
 </table>
-<table border="1" width="400px">
+<table class="table" border="1" width="400px">
         <th width="300px">Discharge Status for ALL</th>
         <c:forEach var="row" items="${discALL.rows}">
             <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
@@ -137,46 +145,30 @@ Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> |Admission Code: <b>
 
 
 <br><br>
-        
-<b>Task 1.1.2</b>  
-<table border="1" width="400px">
-        <th width="300px">Average Length Of Stay for Code <%= admission_code %>: </th>
-        <c:forEach var="row" items="${totalcharges.rows}">
-            <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
-        </c:forEach> 
-</table>
-<table border="1" width="400px">
-        <th width="300px">Average Length Of Stay for ALL</th>
-        <c:forEach var="row" items="${totalchargesALL.rows}">
-            <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
-        </c:forEach> 
-</table>
-        
-<br><br>
 
-<b>Task 1.1.2</b>  
-<table border="1" width="400px">
-        <th width="300px">Average Length Of Stay for Code <%= admission_code %>: </th>
+<b>Task 1.1.3</b>  
+<table class="table" border="1" width="400px">
+        <th width="300px">Average Total Cost for Code <%= admission_code %>: </th>
         <c:forEach var="row" items="${totalcharges.rows}">
             <td width="100px"><c:out value="${row.total}"/></td>
         </c:forEach> 
 </table>
-<table border="1" width="400px">
-        <th width="300px">Average Length Of Stay for ALL</th>
+<table class="table" border="1" width="400px">
+        <th width="300px">Average Total Cost for ALL</th>
         <c:forEach var="row" items="${totalchargesALL.rows}">
             <td width="100px"><c:out value="${row.total}"/></td>
         </c:forEach> 
 </table>
 
 <br><br>
-        
 
 <%        
 } else {
     // It may be a GET request.
 }
 %>
-  
+  <a href="task12.jsp">Click Here for Task 1.2</a>
+
     </body>
 </html>
 
