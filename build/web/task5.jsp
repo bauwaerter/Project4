@@ -5,11 +5,10 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.io.IOException"%>
-<%@page import="java.io.FileNotFoundException"%>
-<%@page import="java.io.FileReader"%>
-<%@page import="java.io.BufferedReader"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <!DOCTYPE html>
 <html>
     <jsp:include page="navbar.jsp"/>
@@ -20,46 +19,60 @@
     <body>
         <h1>Task 5</h1>
         <%
-            String csvFile = "task5cusum.csv";
-            BufferedReader br = null;
-            String line = "";
-            String cvsSplitBy = ",";
-            ArrayList<Task5CuSum> cuSumList = new ArrayList();
- 
-            try {
-
-                    br = new BufferedReader(new FileReader(csvFile));
-                    while ((line = br.readLine()) != null) {
-
-                            // use comma as separator
-                            String[] row = line.split(cvsSplitBy);
-                            int day = Integer.parseInt(row[0]);
-                            int district1 = Integer.parseInt(row[1]);
-                            int district2 = Integer.parseInt(row[2]);
-                            Task5CuSum cuSum = new Task5CuSum(day, district1, district2);
-                            cuSumList.add(cuSum);
-
-                    }
-
-                    } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                    } catch (IOException e) {
-                            e.printStackTrace();
-                    } finally {
-                            if (br != null) {
-                                    try {
-                                            br.close();
-                                    } catch (IOException e) {
-                                            e.printStackTrace();
-                                    }
-                            }
-                    }
-            Task5CuSum cuSum = new Task5CuSum(5,1,2);
+            
+            //ArrayList<Task5CuSum> cuSumList = new ArrayList();
+            int sumD1 = 0;
+            double avgD1 = 0.0;
+            double[] cuSum1 = new double[20];
+            int sumD2 = 0;
+            double avgD2 = 0.0;
+            double[] cuSum2 = new double[20];
+             
+            int [][] dataSet = {{1,2,3},{2,3,2},{3,2,2},{4,4,1},{5,3,2},
+                                {6,2,3},{7,4,3},{8,5,3},{9,3,2},{10,2,3},
+                                {11,1,4},{12,2,3},{13,3,2},{14,2,3},{15,2,4},
+                                {16,4,3},{17,5,4},{18,6,3},{19,2,4},{20,1,3}};
+            
+            for(int row = 0; row < 20; row++){
+                sumD1 += dataSet[row][1];
+                sumD2 += dataSet[row][2];
+                //Task5CuSum cuSum = new Task5CuSum(dataSet[row][0], dataSet[row][1], dataSet[row][2]);
+                //cuSumList.add(cuSum);
+            }
+            
+            avgD1 = sumD1 / 20.0;
+            avgD2 = sumD2 / 20.0;
+            
+            cuSum1[0] = dataSet[0][1] - avgD1;
+            cuSum2[0] = dataSet[0][2] - avgD2;
+            for(int row = 1; row < 20; row++){
+                cuSum1[row] = cuSum1[row-1] + (dataSet[row][1] - avgD1);
+                cuSum2[row] = cuSum2[row-1] + (dataSet[row][2] - avgD2);
+            }
+            
         %>
-        <div id="container">
+        <div id="highChartsDiv">
             
         </div>
-        <div class="col-md-offset-3 col-md-4">
+        <td><%=avgD1%></td>
+                        <td><%=avgD2%></td>
+        <div class="col-md-offset-1 col-md-4">
+            <table class="table" border="1" width="400px">
+                <tr>
+                    <th>Day</th>
+                    <th>S1</th>
+                    <th>S2</th>
+                </tr>
+                <% for(int i = 0; i < 20; i+=1) { %>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%=cuSum1[i]%></td>
+                        <td><%=cuSum2[i]%></td>
+                    </tr>
+                <% } %>
+        </table>
+        </div>
+        <div class="col-md-offset-1 col-md-4">
         <div class="panel-info">
             <div class="panel-heading">
                 Cases of Asthma in Arlington
@@ -102,7 +115,35 @@
 
 <script>
     $(document).ready(function(){
-       
+        var cumSum1 = [];
+        var cumSum2 = [];
+        <% for(int i = 0; i < 20; i+=1) { %>
+                cumSum1.push(<%=cuSum1[i]%>);
+                cumSum2.push(<%=cuSum2[i]%>);
+        <% } %>
+        console.log(cumSum1);
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'highChartsDiv'
+            },
+            title:{
+                text: "Cumulative Sum"
+            },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+            },
+            tooltip: {
+                pointFormat: "Value: {point.y:.2f} mm"
+            },
+            series: [{
+                name: 'CumSum1',
+                data: cumSum1
+            },{
+                name: 'CumSum2',
+                data: cumSum2
+            }]
+
+        });
     });
         
 </script>

@@ -7,6 +7,7 @@
  *
  * @author Brandon Auwaerter
  */
+
 public class Task5CuSum {
     private int day;
     private int district1;
@@ -17,7 +18,6 @@ public class Task5CuSum {
         this.district1 = district1;
         this.district2 = district2;
     }
-    
     public int getDay(){
         return this.day;
     }
