@@ -14,6 +14,8 @@
     </head>
     <body>
         <h1>Task 4</h1>
+        
+        <iframe width="100%" height="700px" src="kaplan.html">
     </body>
 </html>
 
