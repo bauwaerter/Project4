@@ -9,13 +9,17 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-     url="jdbc:mysql://216.70.85.35"
-     user="class"  password="healthcare"/>
 
-<sql:query dataSource="${snapshot}" var="result">
-    SELECT * from hw.hw limit 10;
-</sql:query>
+<%@ page import="sean.AttributeSel" %>
+<%! 
+// load data
+ int i =0 ;
+ AttributeSel attributes = new AttributeSel();
+    
+
+
+%>
+
 <!DOCTYPE html>
 <html>
     <jsp:include page="navbar.jsp"/>
@@ -24,7 +28,13 @@
         <title>Task 2</title>
     </head>
     <body>
-        <h1>Task 2</h1>
+        <table border="1" width="400px">
+        <th width="300px">Selected Attributes </th>
+        <c:forEach var="attr" items="${attributes.selected}">
+            <td width="100px"><c:out value="${attr}"/></td>
+        </c:forEach>
+  
+</table>
     </body>
 </html>
 
@@ -35,3 +45,4 @@
     });
         
 </script>
+
