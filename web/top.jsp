@@ -19,7 +19,7 @@
 
 <%@include file="navbar.jsp" %>
 
-<body>
+<body style="width:100%;">
     <div class="panel panel-info">
-        <div class="panel-body">
+        <div style="padding-left:50px; padding-right:50px; class="panel-body">
      

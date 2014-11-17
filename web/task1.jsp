@@ -1,4 +1,5 @@
 <%@include file="top.jsp" %>
+    <hr>
     <div class="panel-heading">
         Task 1.1
     </div>
@@ -47,7 +48,7 @@
         <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form> 
-        
+    <hr>  
     <%
     if ("POST".equalsIgnoreCase(request.getMethod())) 
     {
