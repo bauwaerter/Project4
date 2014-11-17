@@ -1,13 +1,11 @@
+int a = 1;
 <%@include file="top.jsp" %>
 <div class="panel panel-info">
-    <div style="padding-left:50px; padding-right:50px; class="panel-body">
-     
-
-    <hr>
     <div class="panel-heading">
         Task 1.1
     </div>
-
+    <div class="panel-body">
+    <hr>
     <sql:query dataSource="${snapshot}" var="codes">
         SELECT DISTINCT ADMITTING_DIAGNOSIS_CODE FROM hw;
     </sql:query>
