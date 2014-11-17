@@ -5,18 +5,7 @@
 --%>
 
 
-
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
-
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <%
+    <%-- <%
     try {
             String connectionURL = "jdbc:mysql://216.70.85.35";
             Connection connection = null; 
@@ -34,7 +23,8 @@
         }catch(Exception ex){
             out.println("Unable to connect to database"+ex);
         }  
-    %>
+    %>--%>
+
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -54,12 +44,11 @@
               <li><a href="task3.jsp">Task 3</a></li>
               <li><a href="task4.jsp">Task 4</a></li>
               <li><a href="task5.jsp">Task 5</a></li>
-              <li><a href="testconnection.jsp">Test Connection</a></li>
+              <%--<li><a href="testconnection.jsp">Test Connection</a></li>--%>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-</html>
 
 <script type="text/javascript">
     $(document).ready(function(){
