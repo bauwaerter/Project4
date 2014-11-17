@@ -9,14 +9,10 @@
 <script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-<!DOCTYPE html>
-<html>
-    <jsp:include page="navbar.jsp"/>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Task 5</title>
-    </head>
-    <body>
+<%@include file="top.jsp" %>
+    
+        
+          
         <h1>Task 5</h1>
         <%
             
@@ -109,10 +105,8 @@
             </div>
             </div>
         </div>
-    </body>
-    
-</html>
-
+   <%@include file="footer.jsp" %>
+ 
 <script>
     $(document).ready(function(){
         var cumSum1 = [];
