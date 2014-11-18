@@ -209,7 +209,6 @@
         // It may be a GET request.
     }
     %>
-    <a href="task12.jsp">Click Here for Task 1.2</a>
     </div>   
 </div>
 <%@include file="footer.jsp" %>
