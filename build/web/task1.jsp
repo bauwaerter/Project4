@@ -14,7 +14,7 @@ int a = 1;
 
           <label for="age_group">Age Group</label>
           <div class="col-md-offset-3 col-md-4">
-          <select name="age_group" id="age_group" class="form-control">
+          <select name="age_group" id="age_group">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -30,7 +30,7 @@ int a = 1;
         <div class="form-group">
           <label for="gender">Gender</label>
           <div class="col-md-offset-3 col-md-4">
-          <select name="gender" id="gender" class="form-control">
+          <select name="gender" id="gender">
                <option value="1">M</option>
                 <option value="2">F</option>
           </select>
@@ -39,7 +39,7 @@ int a = 1;
         <div class="form-group">
           <label for="admission_code">Admission Code</label> (TRY 5, 1, 78605)
           <div class="col-md-offset-3 col-md-4">
-              <select name="admission_code" id="admission_code" class="form-control">
+              <select name="admission_code" id="admission_code">
                 <c:forEach var="row" items="${codes.rows}">
                     <option value="${row.ADMITTING_DIAGNOSIS_CODE}"><c:out value="${row.ADMITTING_DIAGNOSIS_CODE}"/></option>
                 </c:forEach> 
@@ -148,5 +148,11 @@ int a = 1;
 </div>
 <%@include file="footer.jsp" %>
 
-
+<script>
+    $(document).ready(function(){
+       $('select').select2({
+           width: '100%',
+       }); 
+    });
+</script>
 
