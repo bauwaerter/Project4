@@ -39,11 +39,29 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="task1.jsp">Task 1</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      Task 1 
+                      <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="task1.jsp">Task 1</a></li>
+                    <li><a href="task12.jsp">Task 1.2</a></li>
+                  </ul>
+              </li>
               <li><a href="task2.jsp">Task 2</a></li>
               <li><a href="task3.jsp">Task 3</a></li>
               <li><a href="task4.jsp">Task 4</a></li>
-              <li><a href="task5.jsp">Task 5</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      Task 5 
+                      <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="task5_cusum.jsp">CuSum</a></li>
+                    <li><a href="task5_ewma">EWMA</a></li>
+                  </ul>
+              </li>
               <%--<li><a href="testconnection.jsp">Test Connection</a></li>--%>
             </ul>
           </div><!--/.nav-collapse -->
