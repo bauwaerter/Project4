@@ -146,7 +146,7 @@
                 cumSum1.push(<%=cuSum1[i]%>);
                 cumSum2.push(<%=cuSum2[i]%>);
         <% } %>
-        console.log(cumSum1);
+        
         var chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'highChartsDiv'
@@ -156,15 +156,20 @@
             },
             xAxis: {
                 categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                
+            },
+            yAxis:{
+                name: "CuSum"
             },
             tooltip: {
-                pointFormat: "Value: {point.y:.2f}"
+                pointFormat: "{series.name}: <b>{point.y:.2f}</b><br/>",
+                shared: true
             },
             series: [{
-                name: 'CumSum1',
+                name: 'CumSumD1',
                 data: cumSum1
             },{
-                name: 'CumSum2',
+                name: 'CumSumD2',
                 data: cumSum2
             }]
 
