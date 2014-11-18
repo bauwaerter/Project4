@@ -1,5 +1,5 @@
 <%-- 
-    Document   : task5
+    Document   : task5_ewma
     Created on : Nov 14, 2014, 8:20:23 PM
     Author     : Brandon Auwaerter
 --%>
@@ -52,11 +52,11 @@
         <div class="row">
         <div class="col-md-6">
             <div class="panel panel-info">
-                <div class="panel-heading">
+                <div class="panel-heading" style="font-weight: bold; color: black;">
                     Averages for Districts
                 </div>
                 <div class="panel-body">
-                    <table class="table">
+                    <table class="table table-hover">
                         <tr>
                             <th>District</th>
                             <th>Average</th>
@@ -77,11 +77,11 @@
        <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-info">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style="font-weight: bold; color: black;">
                         Cumulative Sums
                     </div>
                     <div class="panel-body">
-                        <table class="table">
+                        <table class="table table-condensed table-hover">
                             <tr>
                                 <th>Day</th>
                                 <th>S1</th>
@@ -99,12 +99,12 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel-info">
-                    <div class="panel-heading">
+                <div class="panel panel-info">
+                    <div class="panel-heading" style="font-weight: bold; color: black;">
                         Cases of Asthma in Arlington
                     </div>
-                <div class="panel-body">
-                        <table class="table">
+                    <div class="panel-body">
+                        <table class="table table-condensed table-hover">
                             <tr>
                                 <th>Day</th>
                                 <th>District 1 (new cases)</th>
@@ -146,7 +146,7 @@
                 cumSum1.push(<%=cuSum1[i]%>);
                 cumSum2.push(<%=cuSum2[i]%>);
         <% } %>
-        console.log(cumSum1);
+        
         var chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'highChartsDiv'
@@ -156,15 +156,17 @@
             },
             xAxis: {
                 categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                
             },
             tooltip: {
-                pointFormat: "Value: {point.y:.2f}"
+                pointFormat: "{series.name}: <b>{point.y:.2f}</b><br/>",
+                shared: true
             },
             series: [{
-                name: 'CumSum1',
+                name: 'CumSumD1',
                 data: cumSum1
             },{
-                name: 'CumSum2',
+                name: 'CumSumD2',
                 data: cumSum2
             }]
 
