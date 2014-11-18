@@ -14,6 +14,7 @@ import weka.filters.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import weka.classifiers.functions.SimpleLogistic;
 
 /**
  * performs attribute selection using CfsSubsetEval and GreedyStepwise
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
 
 public class AttributeSel {
 
-    
+    public String output;
     int[] selected ;
     public AttributeSel()  {
       
@@ -34,40 +35,19 @@ public class AttributeSel {
             // load dataSystem.out.println("\n0. Loading data");
             DataSource source;
       try {
+          //C:\\Users\\Sean\\Desktop\\Fall 14\\Health DBs\\
           
-          Path temp = Paths.get("C:\\Users\\Sean\\Desktop\\Fall 14\\Health DBs\\proj 3", "proj3fixed.arff");
+          Path temp = Paths.get(  "C:\\Users\\Sean\\Desktop\\Fall 14\\Health DBs\\proj 3", "proj3fixed.arff");
           String p =temp.toAbsolutePath().toString();
           source = new DataSource( p);//"\\src\\proj3fixed.arff");
       
             Instances data = source.getDataSet();
+            data.setClassIndex(5);
             if (data.classIndex() == -1)
               data.setClassIndex(data.numAttributes() - 1);
             
-            AttributeSelection attsel = new AttributeSelection();
-            
-            data.setClassIndex(8);
-            WrapperSubsetEval eval = new WrapperSubsetEval();
-            eval.setOptions(weka.core.Utils.
-                    splitOptions("weka.attributeSelection.WrapperSubsetEval -B "
-                            + "weka.classifiers.bayes.NaiveBayes -F 5 -T 0.01 -R 1 -E acc --"));
-            
-            attsel.setEvaluator(eval);
-            GreedyStepwise search = new GreedyStepwise();
-            attsel.setSearch(search);
-            
-            attsel.SelectAttributes(data);
-            
-            //attsel.
-            //useClassifier(data);
-            selected = attsel.selectedAttributes();
-            // 1. meta-classifier
-            //useClassifier(data);
-
-            // 2. filter
-            //useFilter(data);
-
-            // 3. low-level
-            //useLowLevel(data);
+            output = useClassifier(data);
+          
             } catch (Exception ex) {
           Logger.getLogger(AttributeSelection.class.getName()).log(Level.SEVERE, null, ex);
       }
@@ -75,19 +55,19 @@ public class AttributeSel {
   /**
    * uses the meta-classifier
    */
-  protected static void useClassifier(Instances data) throws Exception {
+  protected static String useClassifier(Instances data) throws Exception {
     System.out.println("\n1. Meta-classfier");
     AttributeSelectedClassifier classifier = new AttributeSelectedClassifier();
     CfsSubsetEval eval = new CfsSubsetEval();
     GreedyStepwise search = new GreedyStepwise();
     search.setSearchBackwards(true);
-    J48 base = new J48();
+    SimpleLogistic base = new SimpleLogistic();
     classifier.setClassifier(base);
     classifier.setEvaluator(eval);
     classifier.setSearch(search);
     Evaluation evaluation = new Evaluation(data);
-    evaluation.crossValidateModel(classifier, data, 10, new Random(1));
-    System.out.println(evaluation.toSummaryString());
+    evaluation.crossValidateModel(classifier, data, 5, new Random(1));
+    return  evaluation.toSummaryString(true)+evaluation.toClassDetailsString();
   }
 
   /**
