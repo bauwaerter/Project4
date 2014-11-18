@@ -9,5 +9,6 @@
         Kaplan Meyer Survival Function Graph
     </div>
     <img src="images/t4graph.png">
+    <br><br>
 <%@include file="footer.jsp" %>
 

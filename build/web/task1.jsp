@@ -1,4 +1,3 @@
-int a = 1;
 <%@include file="top.jsp" %>
 <div class="panel panel-info">
     <div class="panel-heading">
@@ -92,15 +91,27 @@ int a = 1;
                 <th width="300px">Average Length Of Stay for Code <%= admission_code %>: </th>
                 <c:forEach var="row" items="${length.rows}">
                     <td width="100px"><c:out value="${row.avg}"/></td>
+                    <c:set var="avglen" value="${row.avg}" />
                 </c:forEach> 
         </table>
+               
         <table class="table" border="1" width="400px">
                 <th width="300px">Average Length Of Stay for ALL: </th>
                 <c:forEach var="row" items="${lengthALL.rows}">
                     <td width="100px"><c:out value="${row.avg}"/></td>
+                    <c:set var="alllen" value="${row.avg}" />
                 </c:forEach>
-
         </table>
+                
+        <table class="table" border="1" width="400px">
+                <th width="300px">Deviation Ratio: </th>
+                    <td width="100px">${alllen/avglen}</td>
+        </table>
+        <table class="table" border="1" width="400px">
+                <th width="300px">Absolute Difference: </th>
+                    <td width="100px">${alllen-avglen}</td>
+        </table>
+                 
 
         <br><br>
 
@@ -108,17 +119,60 @@ int a = 1;
         <table class="table" border="1" width="400px">
                 <th width="300px">Discharge Status for Code <%= admission_code %>: </th>
                 <c:forEach var="row" items="${disc.rows}">
-                    <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
+                    <td width="100px">
+                        <c:if test="${row.DISCHARGE_STATUS == 'A'}">
+                            <c:set var="adisccode" value="${row.result}" />
+                            <c:set var="hasa" value="yes" />
+                        </c:if>
+                        <c:if test="${row.DISCHARGE_STATUS == 'B'}">
+                            <c:set var="bdisccode" value="${row.result}" />
+                            <c:set var="hasb" value="yes" />
+                        </c:if>
+                        <c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/>
+                    </td>
                 </c:forEach> 
         </table>
+                
         <table class="table" border="1" width="400px">
                 <th width="300px">Discharge Status for ALL</th>
                 <c:forEach var="row" items="${discALL.rows}">
-                    <td width="100px"><c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/></td>
+                        <c:if test="${row.DISCHARGE_STATUS == 'A'}">
+                            <c:if test="${hasa == 'yes'}">
+                                <c:set var="adiscall" value="${row.result}" />
+                                    <td width="100px">
+                                        <c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/>
+                                    </td>
+                            </c:if>
+                        </c:if>
+                        <c:if test="${row.DISCHARGE_STATUS == 'B'}">
+                            <c:if test="${hasb == 'yes'}">
+                                <c:set var="bdiscall" value="${row.result}" />
+                                    <td width="100px">
+                                        <c:out value="${row.DISCHARGE_STATUS}"/>: <c:out value="${row.result}"/>
+                                    </td>
+                            </c:if>
+                        </c:if>
                 </c:forEach> 
         </table>
 
-
+        <table class="table" border="1" width="400px">
+                <th width="300px">Deviation Ratio: </th>
+                    <c:if test="${adisccode  > 0}">
+                        <td width="100px">A: ${adiscall/adisccode}</td>
+                    </c:if>
+                    <c:if test="${bdisccode >  0}">
+                    <td width="100px">B: ${bdiscall/bdisccode}</td>
+                    </c:if>
+        </table>
+        <table class="table" border="1" width="400px">
+                <th width="300px">Absolute Difference: </th>
+                    <c:if test="${adiscall > 0}">
+                    <td width="100px">A: ${adiscall-adisccode}</td>
+                    </c:if>
+                    <c:if test="${bdiscall > 0}">
+                    <td width="100px">B: ${bdiscall-bdisccode}</td>
+                    </c:if>
+        </table>
 
         <br><br>
 
@@ -127,14 +181,26 @@ int a = 1;
                 <th width="300px">Average Total Cost for Code <%= admission_code %>: </th>
                 <c:forEach var="row" items="${totalcharges.rows}">
                     <td width="100px"><c:out value="${row.total}"/></td>
+                    <c:set var="totalcharges" value="${row.total}" />
                 </c:forEach> 
         </table>
         <table class="table" border="1" width="400px">
                 <th width="300px">Average Total Cost for ALL</th>
                 <c:forEach var="row" items="${totalchargesALL.rows}">
                     <td width="100px"><c:out value="${row.total}"/></td>
+                    <c:set var="totalchargesall" value="${row.total}" />
                 </c:forEach> 
         </table>
+                
+        <table class="table" border="1" width="400px">
+                <th width="300px">Deviation Ratio: </th>
+                    <td width="100px">${totalchargesall/totalcharges}</td>
+        </table>
+        <table class="table" border="1" width="400px">
+                <th width="300px">Absolute Difference: </th>
+                    <td width="100px">${totalchargesall-totalcharges}</td>
+        </table>
+        
         <br><br>
         <%        
     } 
