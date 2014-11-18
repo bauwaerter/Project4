@@ -1,5 +1,5 @@
 <%-- 
-    Document   : task5_ewma
+    Document   : task5_cusum
     Created on : Nov 14, 2014, 8:20:23 PM
     Author     : Brandon Auwaerter
 --%>
@@ -9,9 +9,6 @@
 
 <%@include file="top.jsp" %>
     
-        
-          
-        <h1>Task 5</h1>
         <%
             
             //ArrayList<Task5CuSum> cuSumList = new ArrayList();
@@ -152,7 +149,7 @@
                 renderTo: 'highChartsDiv'
             },
             title:{
-                text: "Cumulative Sum"
+                text: "Cases of Asthma in Arlington Cumulative Sum"
             },
             xAxis: {
                 categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
