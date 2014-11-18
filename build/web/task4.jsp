@@ -1,10 +1,13 @@
 <%@include file="top.jsp" %>
     <hr>
     <div class="panel-heading">
-        Task 4
+        Kaplan Meyer Survival Table
     </div>
-
-        <iframe width="100%" height="700px" src="kaplan.html">
-
+    <img src="images/t4.png">
+    <br><br>
+    <div class="panel-heading">
+        Kaplan Meyer Survival Function Graph
+    </div>
+    <img src="images/t4graph.png">
 <%@include file="footer.jsp" %>
 
