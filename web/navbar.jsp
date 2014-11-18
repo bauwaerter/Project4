@@ -43,7 +43,12 @@
               <li><a href="task2.jsp">Task 2</a></li>
               <li><a href="task3.jsp">Task 3</a></li>
               <li><a href="task4.jsp">Task 4</a></li>
-              <li><a href="task5.jsp">Task 5</a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      Task 5 
+                      <span class="caret"></span>
+                  </a>
+              </li>
               <%--<li><a href="testconnection.jsp">Test Connection</a></li>--%>
             </ul>
           </div><!--/.nav-collapse -->
