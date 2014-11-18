@@ -6,9 +6,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
 <%@include file="top.jsp" %>
     
         
