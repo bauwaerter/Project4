@@ -37,7 +37,7 @@ public class AttributeSel {
       try {
           //C:\\Users\\Sean\\Desktop\\Fall 14\\Health DBs\\
           
-          Path temp = Paths.get(  "C:\\Users\\Sean\\Desktop\\Fall 14\\Health DBs\\proj 3", "proj3fixed.arff");
+          Path temp = Paths.get("proj3fixed.arff");
           String p =temp.toAbsolutePath().toString();
           source = new DataSource( p);//"\\src\\proj3fixed.arff");
       
