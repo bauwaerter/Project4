@@ -21,7 +21,7 @@
 %>
 
 <div class="panel panel-info">
-    <div class="panel-heading">Regression Analysis</div>
+    <div class="panel-heading" style="color:black;font-weight: bolder">Regression Analysis</div>
     <div class="panel-body" style="text-align: center">
         <textarea  style="width: 600px;height: 250px;">
             <%= attributes.output%>
