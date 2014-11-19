@@ -19,7 +19,8 @@
                 <a href=task4.jsp>4.1 Kaplan Meyer Survival Analysis</a>
                 <br>
                 <h3>Functionality 5:</h3>
-                <a href=task5.jsp>5.1 Implement the CuSum and the EWMA algorithms in order to evaluate the significance of changes over time.</a>
+                <a href=task5_cusum.jsp>5.1 Implement the CuSum algorithms in order to evaluate the significance of changes over time.</a><br/>
+                <a href=task5_ewma.jsp>5.2 Implement the EWMA algorithms in order to evaluate the significance of changes over time.</a>
                 <br><br>
                 Group Members: Anup Patel, Brandon Auwaerter, Sean Gibeault
                 <br><br>

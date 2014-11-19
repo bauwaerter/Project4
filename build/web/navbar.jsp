@@ -59,7 +59,7 @@
                   </a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="task5_cusum.jsp">CuSum</a></li>
-                    <li><a href="task5_ewma">EWMA</a></li>
+                    <li><a href="task5_ewma.jsp">EWMA</a></li>
                   </ul>
               </li>
               <%--<li><a href="testconnection.jsp">Test Connection</a></li>--%>

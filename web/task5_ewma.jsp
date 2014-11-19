@@ -1,5 +1,5 @@
 <%-- 
-    Document   : task5_ewma
+    Document   : task5_cusum
     Created on : Nov 14, 2014, 8:20:23 PM
     Author     : Brandon Auwaerter
 --%>
@@ -9,18 +9,21 @@
 
 <%@include file="top.jsp" %>
     
-        
-          
-        <h1>Task 5</h1>
         <%
             
             //ArrayList<Task5CuSum> cuSumList = new ArrayList();
             int sumD1 = 0;
             double avgD1 = 0.0;
-            double[] cuSum1 = new double[20];
+            double stdDev1 = 0.0;
+            double[] dataSet1 = new double[20];
             int sumD2 = 0;
             double avgD2 = 0.0;
-            double[] cuSum2 = new double[20];
+            double stdDev2 = 0.0;
+            double[] dataSet2 = new double[20];
+            double temp1 = 0.0;
+            double temp2 = 0.0;
+            double variance1 = 0.0;
+            double variance2 = 0.0;
              
             int [][] dataSet = {{1,2,3},{2,3,2},{3,2,2},{4,4,1},{5,3,2},
                                 {6,2,3},{7,4,3},{8,5,3},{9,3,2},{10,2,3},
@@ -37,14 +40,39 @@
             avgD1 = sumD1 / 20.0;
             avgD2 = sumD2 / 20.0;
             
-            cuSum1[0] = dataSet[0][1] - avgD1;
-            cuSum2[0] = dataSet[0][2] - avgD2;
-            for(int row = 1; row < 20; row++){
-                cuSum1[row] = cuSum1[row-1] + (dataSet[row][1] - avgD1);
-                cuSum2[row] = cuSum2[row-1] + (dataSet[row][2] - avgD2);
+            for(int i = 0; i < 20; i++){
+                temp1 += (avgD1 - dataSet[i][1])*(avgD1 - dataSet[i][1]);
+                temp2 += (avgD2 - dataSet[i][2])*(avgD2 - dataSet[i][2]);
+            }
+            variance1 = temp1 / 20;
+            variance2 = temp2 / 20;
+            
+            stdDev1 = Math.sqrt(variance1);
+            stdDev2 = Math.sqrt(variance2);
+            
+            for(int row = 0; row < 20; row++){
+                dataSet1[row] = dataSet[row][1];
+                dataSet2[row] = dataSet[row][2];
             }
             
         %>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="lambda_val">Lambda</label>
+                    <div class="col-md-offset-3 col-md-3">
+                        <input id="lambda_val" class="form-control">
+                    </div>
+                    
+                    
+                </div>
+                <div class="col-md-offset-1 inline-block">
+                        <button id="calcEWMA" type="button" class="btn btn-success btn-md">Submit</button>
+                </div>
+            </div>
+        </div>
+        
         <div id="highChartsDiv">
             
         </div>
@@ -75,7 +103,7 @@
        </div>
        </div>
        <div class="row">
-            <div class="col-md-6">
+<!--            <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="font-weight: bold; color: black;">
                         Cumulative Sums
@@ -89,15 +117,15 @@
                             </tr>
                             <% for(int i = 0; i < 20; i+=1) { %>
                                 <tr>
-                                    <td><%=i+1%></td>
-                                    <td><%=cuSum1[i]%></td>
-                                    <td><%=cuSum2[i]%></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             <% } %>
                         </table>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="font-weight: bold; color: black;">
@@ -140,37 +168,93 @@
  
 <script>
     $(document).ready(function(){
-        var cumSum1 = [];
-        var cumSum2 = [];
+        var std1 = <%=stdDev1%>;
+        var std2 = <%=stdDev2%>;
+        var avg1 = <%=avgD1%>;
+        var avg2 = <%=avgD2%>;
+        var dataSet1 = [];
+        var dataSet2 = [];
+        var z1 = [0];
+        var z2 = [0];
+        var ewma1 = [];
+        var ewma2 = [];
+        var sdEwma1 = 0;
+        var sdEwma2 = 0;
+        var lambda_val = 0;
+        var num_clicks = false;
+        
         <% for(int i = 0; i < 20; i+=1) { %>
-                cumSum1.push(<%=cuSum1[i]%>);
-                cumSum2.push(<%=cuSum2[i]%>);
+                dataSet1.push(<%=dataSet1[i]%>);
+                dataSet2.push(<%=dataSet2[i]%>);
         <% } %>
         
-        var chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'highChartsDiv'
-            },
-            title:{
-                text: "Cumulative Sum"
-            },
-            xAxis: {
-                categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-                
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.2f}</b><br/>",
-                shared: true
-            },
-            series: [{
-                name: 'CumSumD1',
-                data: cumSum1
-            },{
-                name: 'CumSumD2',
-                data: cumSum2
-            }]
+        $('#calcEWMA').click(function(){
+            z1 = [0];
+            z2 = [0];
+            ewma1 = [];
+            ewma2 = [];
+            sdEwma1 = 0;
+            sdEwma2 = 0;
+        
+            lambda_val = $('#lambda_val').val();
+            if(lambda_val <= 0 || lambda_val > 1)
+                return false;
+            sdEwma1 = Math.sqrt((lambda_val/(2-lambda_val))*Math.pow(std1, 2));
+            sdEwma2 = Math.sqrt((lambda_val/(2-lambda_val))*Math.pow(std2, 2));
+            $(dataSet1).each(function(index, val){
+                if(index === 0){
+                    ewma1.push((lambda_val*val) + ((1-lambda_val) * avg1));
+                } else {
+                    ewma1.push((lambda_val*val) + ((1-lambda_val) * ewma1[index-1]));
+                }
+            });
+            $(dataSet2).each(function(index, val){
+                if(index === 0){
+                    ewma2.push((lambda_val*val) + ((1-lambda_val) * avg2));
+                } else {
+                    ewma2.push((lambda_val*val) + ((1-lambda_val) * ewma2[index-1]));
+                }
+            });
+            $(ewma1).each(function(index, val){
+                z1.push((val-avg1) / sdEwma1);
+            });
+            $(ewma2).each(function(index, val){
+                z2.push((val-avg1) / sdEwma2);
+            });
+            
+//            if(num_clicks)
+//                $('#highChartsDiv').highcharts().destroy();
+            $('#highChartsDiv').empty();
+            var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'highChartsDiv'
+                    },
+                    title:{
+                        text: "Cases of Asthma in Arlington EWMA"
+                    },
+                    xAxis: {
+                        categories: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
+                    },
+                    tooltip: {
+                        pointFormat: "{series.name}: <b>{point.y:.2f}</b><br/>",
+                        shared: true
+                    },
+                    series: [{
+                        name: 'z1',
+                        data: z1
+                    },{
+                        name: 'z2',
+                        data: z2
+                    }]
+
+            });
+            
+        num_clicks = true;
         });
+        
+              
+        
     });
         
 </script>
