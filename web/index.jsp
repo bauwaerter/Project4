@@ -1,6 +1,6 @@
 <%@include file="top.jsp" %>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h1>CSE 5339: Data Issues for Decision Making in Healthcare<br>
                     <br>Project 4</h1>
                 <br>

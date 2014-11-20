@@ -56,23 +56,33 @@
             }
             
         %>
-        
+        <div id="errorMessage" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title">Error</h4>
+                </div>
+                <div class="modal-body">
+                  <p style="color:red;">Please enter a lambda value between 0 and 1.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="lambda_val">Lambda</label>
-                    <div class="col-md-offset-3 col-md-3">
-                        <input id="lambda_val" class="form-control">
-                    </div>
-                    
-                    
+            <div class="col-md-6">
+                <label for="lambda_val">Lambda</label>
+                <div class="col-md-offset-3 col-md-5">
+                    <input id="lambda_val" class="form-control">
                 </div>
-                <div class="col-md-offset-1 inline-block">
-                        <button id="calcEWMA" type="button" class="btn btn-success btn-md">Submit</button>
-                </div>
-            </div>
+                &nbsp;&nbsp;
+                <button id="calcEWMA" type="button" class="btn btn-success btn-md">Submit</button>
+            </div>           
         </div>
-        
+        <br/>
         <div id="highChartsDiv">
             
         </div>
@@ -198,7 +208,7 @@
         
             lambda_val = $('#lambda_val').val();
             if(lambda_val <= 0 || lambda_val > 1)
-                return false;
+                $('#errorMessage').modal('show');
             sdEwma1 = Math.sqrt((lambda_val/(2-lambda_val))*Math.pow(std1, 2));
             sdEwma2 = Math.sqrt((lambda_val/(2-lambda_val))*Math.pow(std2, 2));
             $(dataSet1).each(function(index, val){

@@ -8,7 +8,9 @@
     <div class="panel-body">
         <hr>
         <form action="task3.jsp" method="POST" role="form">
+            <div class="row">
             <div class="form-group">
+                
               <div class="col-md-offset-3 col-md-3">
                   <label for="age_group">Features to be included:</label><br>
                     <input type="checkbox" name="attributes" value="AGE">AGE<br>
@@ -36,6 +38,7 @@
             </div>
             <div class="col-md-offset-5">
                 <button type="submit" class="btn btn-success btn-lg">Submit</button>
+            </div>
             </div>
         </form> 
     </div>
