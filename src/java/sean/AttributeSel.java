@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import weka.classifiers.functions.SimpleLogistic;
+import weka.filters.unsupervised.attribute.Remove;
 
 /**
  * performs attribute selection using CfsSubsetEval and GreedyStepwise
@@ -42,11 +43,9 @@ public class AttributeSel {
           source = new DataSource( p);//"\\src\\proj3fixed.arff");
       
             Instances data = source.getDataSet();
-            data.setClassIndex(5);
-            if (data.classIndex() == -1)
-              data.setClassIndex(data.numAttributes() - 1);
+            data.setClassIndex(5);            
             
-            output = useClassifier(data);
+            output = useLowLevel(data);
           
             } catch (Exception ex) {
           Logger.getLogger(AttributeSelection.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,17 +88,32 @@ public class AttributeSel {
   /**
    * uses the low level approach
    */
-  protected static void useLowLevel(Instances data) throws Exception {
+  protected static String useLowLevel(Instances data) throws Exception {
     System.out.println("\n3. Low-level");
     AttributeSelection attsel = new AttributeSelection();
     CfsSubsetEval eval = new CfsSubsetEval();
     GreedyStepwise search = new GreedyStepwise();
     search.setSearchBackwards(true);
-    //attsel.setEvaluator(eval);
-    //attsel.setSearch(search);
-    //attsel.SelectAttributes(data);
-    //int[] indices = attsel.selectedAttributes();
-    //System.out.println("selected attribute indices (starting with 0):\n" + Utils.arrayToString(indices));
+    attsel.setEvaluator(eval);
+    attsel.setSearch(search);
+    attsel.SelectAttributes(data);
+    
+    
+    SimpleLogistic base = new SimpleLogistic();
+    
+    Instances newInst;
+    
+    
+     Remove remove = new Remove();
+     remove.setAttributeIndicesArray(attsel.selectedAttributes());
+     remove.setInvertSelection(true);
+     remove.setInputFormat(data);
+    newInst = Filter.useFilter(data, remove);
+    base.buildClassifier(newInst);
+    
+    
+    return base.toString();
+    
   }
             
             
