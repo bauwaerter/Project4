@@ -115,6 +115,7 @@
         
         <br/>
         
+        
         <table class="table table-hover table-bordered" width="400px">
             <tr style="background-color: #d9edf7;"><th>Task 1.1.2</th><th></th><th></th></tr>
             <tr><td width="300px">Discharge Status for Code <%= admission_code %>: </td>
