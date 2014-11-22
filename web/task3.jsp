@@ -8,11 +8,25 @@
     <div class="panel-body">
         <hr>
         <form action="task3.jsp" method="POST" role="form">
-            <div class="row">
+
             <div class="form-group">
-                
+             <label for="age_group">Confidence Level</label>
               <div class="col-md-offset-3 col-md-3">
-                  <label for="age_group">Features to be included:</label><br>
+                  <input name="confidence" id="age_group">
+                </div>
+            </div>
+                
+            <div class="form-group">
+              <div class="col-md-offset-3 col-md-3">
+                  <input name="support" id="age_group">
+                </div>
+                             <label for="age_group">Support Level</label>
+
+            </div>
+            
+            <div class="form-group">
+                  <label for="age_group">Features to be included:</label>
+                <div class="col-md-offset-3 col-md-3">
                     <input type="checkbox" name="attributes" value="AGE">AGE<br>
                     <input type="checkbox" name="attributes" value="SEX">SEX<br>
                     <input type="checkbox" name="attributes" value="RACE">RACE<br>
@@ -34,12 +48,14 @@
                     <input type="checkbox" name="attributes" value="SOURCE_OF_ADMISSION">SOURCE_OF_ADMISSION<br>
                     <input type="checkbox" name="attributes" value="TYPE_OF_ADMISSION">TYPE_OF_ADMISSION<br>
                     <input type="checkbox" name="attributes" value="ADMITTING_DIAGNOSIS_CODE">ADMITTING_DIAGNOSIS_CODE<br>
-              </div>
+              </div>  
             </div>
+                
+            <br><br><br>
             <div class="col-md-offset-5">
                 <button type="submit" class="btn btn-success btn-lg">Submit</button>
             </div>
-            </div>
+
         </form> 
     </div>
     <div class="panel-body">
@@ -48,6 +64,8 @@
     if ("POST".equalsIgnoreCase(request.getMethod())) 
     {
         String[] attributes;
+        String confidence = request.getParameter("confidence");
+        String support = request.getParameter("support");
        %>
         <center>You have selected: 
         <% 
@@ -60,6 +78,8 @@
                }
             }
             else out.println ("<b>none<b>");
+            out.println("<br>Confidence: "+confidence);
+            out.println("<br>Support: "+support);
         %>
         </center>    
     <%    
