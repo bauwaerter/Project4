@@ -7,7 +7,7 @@
     </div>
     <div class="panel-body">
         <hr>
-        <form action="task3.jsp" method="POST" role="form">
+        <form action="Task3Servlet" method="POST" role="form">
 
             <div class="form-group">
              <label for="age_group">Confidence Level</label>

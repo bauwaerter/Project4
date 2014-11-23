@@ -3,7 +3,7 @@
 
     <hr>
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="col-md-offset-1 col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading" style="font-weight: bold; color: black;">
                     Kaplan Meyer Survival Table
@@ -69,7 +69,7 @@
        
     <br/>
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="col-md-offset-1 col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading" style="font-weight: bold; color: black;">
                     Kaplan Meyer Survival Function Graph
