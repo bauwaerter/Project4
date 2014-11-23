@@ -5,17 +5,23 @@
  */
 package sean;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Sean
  */
 public class Rules {
     
-    public int FirstAtt;
-    public int SecondAtt;
-    public float confidence;
-    public float support;
-    public int numOfFirst;
+    public ArrayList<RuleTo> RulesTo;
+    public String Attribute;
+    public int index;
+    
+    public Rules(String att,int num){
+        Attribute=att;
+        index = num;
+    }
     
     
 }
+
