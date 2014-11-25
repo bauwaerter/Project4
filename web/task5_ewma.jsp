@@ -111,6 +111,29 @@
                 </div>
                 </div>
        </div>
+                        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading" style="font-weight: bold; color: black;">
+                    Standard Deviation for Districts
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>District</th>
+                            <th>Standard Deviation</th>
+                        </tr>
+                        <tr>
+                            <td>District 1</td>
+                            <td><%=stdDev1%></td>
+                        </tr>
+                        <tr>
+                            <td>District 2</td>
+                            <td><%=stdDev2%></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+       </div>
        </div>
        <div class="row">
 <!--            <div class="col-md-6">
