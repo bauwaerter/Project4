@@ -16,14 +16,15 @@
                 <hr>
                 <form action="task3.jsp" method="POST" role="form">
 
-                    <div class="form-group">
+                    <div >
                         <label for="age_group">Confidence Level</label>
                         <div class="col-md-offset-3 col-md-3">
                             <input name="confidence" id="age_group">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <br/>
+                    <div >
                         <div class="col-md-offset-3 col-md-3">
                             <input name="support" id="age_group">
                         </div>
@@ -31,9 +32,10 @@
 
                     </div>
 
-                    <div class="form-group">
-                        <label for="age_group">Features to be included:</label>
-                        <div class="col-md-offset-3 col-md-3">
+                    <div >
+                        <h5 style="text-align: center; font-weight: bold; font-size: 36px"><u>Features to be included:</u></h5>
+                        <br/>
+                        <div class="col-md-offset-3 col-md-8">
                             <input type="checkbox" name="attributes" value="AGE">AGE<br>
                             <input type="checkbox" name="attributes" value="SEX">SEX<br>
                             <input type="checkbox" name="attributes" value="RACE">RACE<br>
@@ -59,7 +61,7 @@
                     </div>
 
                     <br><br><br>
-                    <div class="col-md-offset-5">
+                    <div width="100%" style="text-align: center">
                         <button type="submit" class="btn btn-success btn-lg">Submit</button>
                     </div>
 
