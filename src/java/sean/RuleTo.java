@@ -13,22 +13,24 @@ public class RuleTo {
     int count;
     int numTimesHadValue;
     int numOfRecords;
-    String AttributeFrom;
-    String AttributeTo;
-    String AttributeVal1;
-    String AttributeVal2;
-    float support;
-    float confidence;
+    public String AttributeFrom;
+    public String AttributeTo;
+    public String AttributeVal1;
+    public String AttributeVal2;
+    public float support;
+    public float confidence;
     public RuleTo(String att, String val1, String val2)
     {
         AttributeTo=att;
         AttributeVal1 = val1;
         AttributeVal2= val2;
+        count =1;
+        numTimesHadValue =1;
     }
     
     public void calcMetrics()
     {
-        support = count / numOfRecords;
-        confidence = count / numTimesHadValue;
+        support = (float)count / numOfRecords;
+        confidence = (float)count / numTimesHadValue;
     }
 }

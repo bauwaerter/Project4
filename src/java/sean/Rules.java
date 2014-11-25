@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Rules {
     
-    public ArrayList<RuleTo> RulesTo;
+    public ArrayList<RuleTo> RulesTo = new ArrayList<RuleTo>();
     public String Attribute;
     public int index;
     
