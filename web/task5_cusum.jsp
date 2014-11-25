@@ -17,6 +17,12 @@
             double[] cuSum1 = new double[20];
             int sumD2 = 0;
             double avgD2 = 0.0;
+            double temp1 = 0.0;
+            double temp2 = 0.0;
+            double variance1 = 0.0;
+            double variance2 = 0.0;
+            double stdDev1 = 0.0;
+            double stdDev2 = 0.0;            
             double[] cuSum2 = new double[20];
              
             int [][] dataSet = {{1,2,3},{2,3,2},{3,2,2},{4,4,1},{5,3,2},
@@ -33,6 +39,16 @@
             
             avgD1 = sumD1 / 20.0;
             avgD2 = sumD2 / 20.0;
+            
+            for(int i = 0; i < 20; i++){
+                temp1 += (avgD1 - dataSet[i][1])*(avgD1 - dataSet[i][1]);
+                temp2 += (avgD2 - dataSet[i][2])*(avgD2 - dataSet[i][2]);
+            }
+            variance1 = temp1 / 20;
+            variance2 = temp2 / 20;
+            
+            stdDev1 = Math.sqrt(variance1);
+            stdDev2 = Math.sqrt(variance2);
             
             cuSum1[0] = dataSet[0][1] - avgD1;
             cuSum2[0] = dataSet[0][2] - avgD2;
@@ -70,6 +86,29 @@
                 </div>
                 </div>
        </div>
+                                    <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading" style="font-weight: bold; color: black;">
+                    Standard Deviation for Districts
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>District</th>
+                            <th>Standard Deviation</th>
+                        </tr>
+                        <tr>
+                            <td>District 1</td>
+                            <td><%=stdDev1%></td>
+                        </tr>
+                        <tr>
+                            <td>District 2</td>
+                            <td><%=stdDev2%></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+       </div>
        </div>
        <div class="row">
             <div class="col-md-6">
@@ -95,6 +134,7 @@
                     </div>
                 </div>
             </div>
+                        
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="font-weight: bold; color: black;">
@@ -137,6 +177,10 @@
  
 <script>
     $(document).ready(function(){
+        var stdDev1High_a = 2*<%=stdDev1%>;
+        var stdDev1Low_a = stdDev1High_a * -1;
+        var stdDev2High_b = 2*<%=stdDev2%>;
+        var stdDev1Low_b = stdDev2High_b * -1;
         var cumSum1 = [];
         var cumSum2 = [];
         <% for(int i = 0; i < 20; i+=1) { %>
@@ -154,6 +198,42 @@
             xAxis: {
                 categories: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
                 
+            },
+            yAxis : {
+                title : {
+                    text : 'CuSum'
+                },
+                plotLines : [{
+                    value : stdDev1High_a,
+                    color : 'green',
+                    dashStyle : 'shortdash',
+                    width : 1,
+                    label : {
+                        text : 'District 1 Threshold (std * 2)'
+                    }
+                }, {
+                    value : stdDev1Low_a,
+                    color : 'green',
+                    dashStyle : 'shortdash',
+                    width : 1,
+                    
+                },{
+                    value : stdDev2High_b,
+                    color : 'red',
+                    dashStyle : 'shortdash',
+                    width : 1,
+                    label : {
+                        text : 'District 2 Threshold (std * 2)'
+                    }
+                },{
+                    value : stdDev1Low_b,
+                    color : 'red',
+                    dashStyle : 'shortdash',
+                    width : 1,
+                    
+                }
+                
+            ]
             },
             tooltip: {
                 pointFormat: "{series.name}: <b>{point.y:.2f}</b><br/>",
