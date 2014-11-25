@@ -37,7 +37,7 @@ public class Task1Servlet extends HttpServlet {
         Task1 task1=new Task1(age_group, gender, admDiagnosisCode);  
         
         request.setAttribute("task1",task1);
-        
+        request.getRequestDispatcher("/task1_results.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -57,10 +57,14 @@
     {
         String age_group = request.getParameter("age_group");
         String gender = request.getParameter("gender");
+        String gender_display = "M";
         String admission_code = request.getParameter("admission_code");
+        if(gender.equals("2")){
+            gender_display = "F";
+        }
         %> 
         <font size="3"><b>RESULTS:</b></font><br>
-        Age: <b><%= age_group %></b> | Gender: <b><%= gender %></b> | Admission Code: <b><%= admission_code %></b><br><br>
+        Age: <b><%= age_group %></b> | Gender: <b><%=gender_display%></b> | Admission Code: <b><%= admission_code %></b><br><br>
 
 
 
@@ -218,7 +222,7 @@
 <script>
     $(document).ready(function(){
        $('select').select2({
-           width: '100%',
+           width: '100%'
        }); 
     });
 </script>
