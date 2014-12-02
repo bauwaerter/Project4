@@ -31,10 +31,11 @@
         <div class="col-md-offset-2 col-md-8">
          <table class="table table-hover table-bordered table-condensed" width="400px">
              <tr style="background-color: #d9edf7;">
-                 <th>Count</th><th>Code</th>
+                 <th>#</th><th>Count</th><th>Code</th>
              </tr>
-             <c:forEach var="row" items="${deathondisc.rows}">
+             <c:forEach var="row" items="${deathondisc.rows}" varStatus="loopStatus">
                  <tr>
+                     <td><c:out value="${loopStatus.index+1}"/></td>
                      <td><c:out value="${row.count}"/></td>
                      <td><c:out value="${row.ADMITTING_DIAGNOSIS_CODE}"/></td>
                  </tr>
@@ -51,11 +52,12 @@
         <div class="col-md-offset-2 col-md-8">
          <table class="table table-hover table-bordered table-condensed" width="400px">
              <tr style="background-color: #d9edf7;">
-                 <th>Cost</th><th>Code</th>
+                 <th>#</th><th>Cost</th><th>Code</th>
              </tr>
-             <c:forEach var="row" items="${mostexp.rows}">
+             <c:forEach var="row" items="${mostexp.rows}" varStatus="loopStatus">
                 <tr>
-                    <td>$<c:out value="${row.charges}"/></td>
+                    <td><c:out value="${loopStatus.index+1}"/></td>
+                    <td class="charge"><c:out value="${row.charges}"/></td>
                     <td><c:out value="${row.ADMITTING_DIAGNOSIS_CODE}"/></td>
                 </tr>
             </c:forEach> 
@@ -72,10 +74,11 @@
         <div class="col-md-offset-2 col-md-8">
          <table class="table table-hover table-bordered table-condensed" width="400px">
              <tr style="background-color: #d9edf7;">
-                 <th>Days</th><th>Code</th>
+                 <th>#</th><th>Days</th><th>Code</th>
              </tr>
-             <c:forEach var="row" items="${longest.rows}">
+             <c:forEach var="row" items="${longest.rows}" varStatus="loopStatus">
                 <tr>
+                    <td><c:out value="${loopStatus.index+1}"/></td>
                     <td><c:out value="${row.los}"/></td>
                     <td><c:out value="${row.ADMITTING_DIAGNOSIS_CODE}"/></td>
                 </tr>
@@ -93,8 +96,17 @@
     $(document).ready(function(){
        $('select').select2({
            width: '100%',
-       }); 
+       });
+       $('.charge').each(function(index, val){
+           var newVal = parseInt(val.innerHTML);
+           newVal = newVal.toFixed(2);
+           newVal = numberWithCommas(newVal);
+          $(this).html('$' + newVal); 
+       });
     });
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 </script>
 
 
