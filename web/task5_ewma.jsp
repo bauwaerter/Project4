@@ -136,29 +136,9 @@
        </div>
        </div>
        <div class="row">
-<!--            <div class="col-md-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading" style="font-weight: bold; color: black;">
-                        Cumulative Sums
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-condensed table-hover">
-                            <tr>
-                                <th>Day</th>
-                                <th>S1</th>
-                                <th>S2</th>
-                            </tr>
-                            <% for(int i = 0; i < 20; i+=1) { %>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            <% } %>
-                        </table>
-                    </div>
-                </div>
-            </div>-->
+           <div id="ewma_table" class="col-md-6">
+               
+           </div>
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="font-weight: bold; color: black;">
@@ -248,6 +228,15 @@
                     ewma2.push((lambda_val*val) + ((1-lambda_val) * ewma2[index-1]));
                 }
             });
+            
+            var table_ewma_string = "";
+            $('#ewma_table').empty();
+            for(var i = 0; i < 20; i++){
+                table_ewma_string += "<tr><td>"+(i+1)+"</td><td>"+ewma1[i]+"</td><td>"+ewma2[i]+"</td></tr>";
+            }
+            
+            $('#ewma_table').append("<div class='panel panel-info'><div class='panel-heading' style='font-weight: bold; color: black;'>EWMA</div><div class='panel-body'><table class='table table-condensed table-hover'><tr><th>Day</th><th>District 1 (new cases)</th><th>District 2 (new cases)</th></tr>"+table_ewma_string+"</table></div></div>");
+            
             $(ewma1).each(function(index, val){
                 z1.push((val-avg1) / sdEwma1);
             });
